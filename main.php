@@ -1,3 +1,4 @@
+<?php
 $tArgs = $_GET
 local dir = assert(tArgs[1] and fs.isDir(dir), "Please Specify A Directory")
 
@@ -30,3 +31,4 @@ function appendURL(url, name)
 
 for k, v in ipairs(fs.list(dir)) do
     
+?>
