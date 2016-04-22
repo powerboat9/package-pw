@@ -1,4 +1,4 @@
-local tArgs = {...}
+$tArgs = $_GET
 local dir = assert(tArgs[1] and fs.isDir(dir), "Please Specify A Directory")
 
 function getName(s)
