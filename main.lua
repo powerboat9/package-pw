@@ -40,6 +40,37 @@ function appendURL(url, file)
     end
 end
 
-for k, v in ipairs(fs.list(dir)) do
-    
+local dirs = {dir}
+local files = {}
 
+function iterateDirs(sDir)
+    for _, v in ipairs(fs.list(sDir)) do
+        if fs.isDir(dir .. "/" .. v) then
+            dirs[#dirs + 1] = dir .. "/" .. v
+        else
+            files[#files + 1] = dir .. "/" .. v
+        end
+    end
+end
+
+repeat
+    iterateDirs(table.remove(dirs, 1))
+until not dirs[1]
+
+for _, v in ipairs(files) do
+    appendFile(v)
+end
+
+local outputFile = "pack_" .. os.day() .. ":" .. os.time()
+
+if fs.exists(outputFile) then
+    local appendNumber = 0
+    while fs.exists(outputFile .. "_" .. appendNumber) do
+        appendNumber = appendNumber + 1
+    end
+    outputFile = outputFile .. "_" .. appendNumber
+end
+
+local handle = fs.open(outputFile)
+handle.write(saveFile)
+handle.close()
